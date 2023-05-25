@@ -1,5 +1,5 @@
 const { Router } = require('express')
-const { listRoutes } = require('../utils')
+
 const { groupsController } = require('../controllers')
 
 const router = Router()
@@ -20,6 +20,4 @@ router.delete('/:groupId/students/:studentId', groupsController.removeStudentFro
 
 router.delete('/:groupId/teachers/:teacherId', groupsController.removeTeacherFromGroup)
 
-
-listRoutes(router, '/api/groups')
 module.exports = router
