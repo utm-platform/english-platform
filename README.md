@@ -43,6 +43,29 @@ npm run build:client # Build the client for production
 npm run start:client # Start the client in production mode
 ```
 
+## **Folder structure**
+
+- `/client`: Here is the front-end code of the app.
+  - `/public`: Contains the public files. Static files can be placed here (e.g. images, fonts, etc).
+  - `/src`: Contains all the code of the app.
+    - `/app`: Here is the index page of the app. You can add more pages here.
+    - `/components`: Here are the components of the app. You can add more components here.
+
+- `/src`: Contains the server code.
+  - `/config`: The config is for defining the configuration variables.
+  - `/controllers`: Controllers are responsible for handling the requests and responses.
+  - `/middlewares`: Middlewares are responsible for handling the requests before they reach the controllers.
+  - `/models`: Models are responsible for defining the schemas of the collections of the database.
+  - `/routes`: Routes are responsible for defining the routes of the API.
+  - `/services`: Services are responsible for handling the business logic.
+  - `/utils`: The utils are responsible for defining utility functions.
+  - `app.js`: Defines the express app.
+  - `database.js`: Connects to the database.
+  - `index.js`: The main file of the server. Here the server is started.
+- `.env.example`: This file contains examples of the environment variables that the server uses.
+- `.env` *(not included)*: This file is used to define the environment variables that the server uses.
+
+
 ## **Code Lifecycle**
 
 ### **Branches**
