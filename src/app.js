@@ -6,6 +6,7 @@ const listEndpoints = require('express-list-endpoints')
 const auth = require('./routes/auth')
 const routes = require('./routes')
 const { NODE_ENV } = require('./config')
+const { handleErrors } = require('./middlewares')
 
 const app = express()
 
@@ -16,9 +17,11 @@ app.use(morgan(NODE_ENV === 'production' ? 'combined' : 'dev'))
 app.use('/api', routes)
 app.use('/auth', auth)
 
+app.use(handleErrors)
+
 listEndpoints(app).forEach(route => {
   route.methods.forEach(method => {
-    console.log(`${method.toUpperCase()}\t ${route.path}`)
+    console.log(`- ${method.toUpperCase()}   \t${route.path}`)
   })
 })
 
