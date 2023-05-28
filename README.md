@@ -28,6 +28,7 @@ Create a `.env` file in the root of the repository and add the following variabl
 PORT=5000 # Port where the server will run
 DB_URI=mongodb://localhost:27017/english-platform # MongoDB URI
 JWT_SECRET=secret # JWT secret
+NODE_ENV=development # Node environment
 ```
 ## **Run the server**
 ```bash
