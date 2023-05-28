@@ -1,6 +1,6 @@
 const { usersService } = require('../services')
 
-const createUser = async (req, res) => {
+const create = async (req, res) => {
   const { plate, name, email, password, passwordConfirmation, lastName, role } = req.body
 
   if(password !== passwordConfirmation) {
@@ -34,7 +34,7 @@ const getAllAdmins = async (req, res) => {
   res.json(users)
 }
 
-const getUserById = async (req, res) => {
+const getById = async (req, res) => {
   const { id } = req.params
 
   const user = await usersService.getById(id)
@@ -46,7 +46,7 @@ const getUserById = async (req, res) => {
   res.json(user)
 }
 
-const deleteUser = async (req, res) => {
+const remove = async (req, res) => {
   const { id } = req.params
 
   const user = await usersService.remove(id)
@@ -59,10 +59,10 @@ const deleteUser = async (req, res) => {
 }
 
 module.exports = {
-  createUser,
+  create,
   getAllStudents,
   getAllTeachers,
   getAllAdmins,
-  getUserById,
-  deleteUser
+  getById,
+  remove
 }

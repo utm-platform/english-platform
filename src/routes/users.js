@@ -14,7 +14,7 @@ router.post('/',
   body('email').trim().isEmail().withMessage('Email is not a valid email'),
   body('password').trim().isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
   checkValidations,
-  usersController.createUser
+  usersController.create
 )
 
 router.get('/students',
@@ -40,13 +40,13 @@ router.get('/admins',
 router.get('/:id',
   checkUserToken,
   checkHasAdminPrivileges,
-  usersController.getUserById
+  usersController.getById
 )
 
 router.delete('/:id',
   checkUserToken,
   checkHasAdminPrivileges,
-  usersController.deleteUser
+  usersController.remove
 )
 
 module.exports = router
