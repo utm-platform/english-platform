@@ -1,18 +1,19 @@
 const jwt = require('jsonwebtoken')
 
 const { JWT_SECRET } = require('../config')
+const { UnauthorizedError } = require('../utils/errors')
 
 const checkUserToken = (req, res, next) => {
   const { authorization } = req.headers
 
   if(!authorization) {
-    return res.status(401).json({ status: 401, message: 'Token not found' })
+    next(new UnauthorizedError('No Authorization header found'))
   }
 
   const [, token] = authorization.split(' ')
 
   if(!token) {
-    return res.status(401).json({ status: 401, message: 'Token not found' })
+    next(new UnauthorizedError('No token found'))
   }
 
   try {
@@ -21,7 +22,7 @@ const checkUserToken = (req, res, next) => {
 
     next()
   } catch (err) {
-    return res.status(401).json({ status: 401, message: 'Invalid token' })
+    next(new UnauthorizedError('Not authorized'))
   }
 }
 

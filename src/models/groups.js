@@ -5,7 +5,8 @@ const requiredMessage = '{PATH} is required!'
 const groupSchema = new Schema({
   name: {
     type: String,
-    required: requiredMessage
+    required: requiredMessage,
+    unique: true
   },
   career: {
     type: String,

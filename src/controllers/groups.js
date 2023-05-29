@@ -1,48 +1,84 @@
-const createGroup = async (req, res) => {
-  res.json({ message: 'Create Group!' })
+const { groupsService } = require('../services')
+
+const create = async (req, res, next) => {
+  const { name, career, teacher } = req.body
+
+  try {
+    const group = await groupsService.create({ name, career, teacher })
+    res.status(201).json(group)
+  } catch (error) {
+    next(error)
+  }
 }
 
-const getAllGroups = async (req, res) => {
-  res.json({ message: 'Get All Groups!' })
+const getAll = async (req, res) => {
+  const groups = await groupsService.getAll()
+
+  res.json(groups)
 }
 
-const getGroupById = async (req, res) => {
+const getById = async (req, res) => {
   const { id } = req.params
-  res.json({ message: `Get Group By Id! Group: ${id}` })
+
+  const group = await groupsService.getById(id)
+
+  res.json(group)
 }
 
-const addStudentToGroup = async (req, res) => {
+const addStudent = async (req, res, next) => {
   const { groupId, studentId } = req.params
-  res.json({ message: `Add Student ${studentId} to Group ${groupId}!` })
+
+  try {
+    const group = await groupsService.addStudent(groupId, studentId)
+
+    res.json(group)
+  } catch (error) {
+    next(error)
+  }
 }
 
-const removeStudentFromGroup = async (req, res) => {
+const removeStudent = async (req, res, next) => {
   const { groupId, studentId } = req.params
-  res.json({ message: `Remove Student ${studentId} from Group ${groupId}!` })
+
+  try {
+    const group = await groupsService.removeStudent(groupId, studentId)
+
+    res.json(group)
+  } catch (error) {
+    next(error)
+  }
 }
 
-const addTeacherToGroup = async (req, res) => {
+const changeTeacher = async (req, res, next) => {
   const { groupId, teacherId } = req.params
-  res.json({ message: `Add Teacher ${teacherId} to Group ${groupId}!` })
+
+  try {
+    const group = await groupsService.changeTeacher(groupId, teacherId)
+    res.json(group)
+  } catch (error) {
+    next(error)
+  }
+
 }
 
-const removeTeacherFromGroup = async (req, res) => {
-  const { groupId, teacherId } = req.params
-  res.json({ message: `Remove Teacher ${teacherId} from Group ${groupId}!` })
-}
+const remove = async (req, res, next) => {
+  const { id } = req.params
 
-const deleteGroup = async (req, res) => {
-  const { groupId } = req.params
-  res.json({ message: `Delete Group ${groupId}!` })
+  try {
+    await groupsService.remove(id)
+    res.status(204).end()
+  } catch (error) {
+    next(error)
+  }
+
 }
 
 module.exports = {
-  createGroup,
-  getAllGroups,
-  getGroupById,
-  addStudentToGroup,
-  removeStudentFromGroup,
-  addTeacherToGroup,
-  removeTeacherFromGroup,
-  deleteGroup
+  create,
+  getAll,
+  getById,
+  addStudent,
+  removeStudent,
+  changeTeacher,
+  remove
 }
