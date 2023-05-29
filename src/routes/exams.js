@@ -1,14 +1,36 @@
 const { Router } = require('express')
 const { examsController } = require('../controllers')
+const { checkHasTeacherPrivileges, checkUserToken } = require('../middlewares')
 
 const router = Router()
 
-router.post('/', examsController.generate)
+router.post('/',
+  checkUserToken,
+  checkHasTeacherPrivileges,
+  examsController.generateToStudent
+)
 
-router.get('/', examsController.getAll)
+router.post('/groups/:id',
+  checkUserToken,
+  checkHasTeacherPrivileges,
+  examsController.generateToGroup
+)
 
-router.get('/:id', examsController.getById)
+router.get('/',
+  checkUserToken,
+  checkHasTeacherPrivileges,
+  examsController.getAll
+)
 
-router.put('/:id', examsController.finish)
+router.get('/:id',
+  checkUserToken,
+  checkHasTeacherPrivileges,
+  examsController.getById
+)
+
+router.put('/:id',
+  checkUserToken,
+  examsController.finish
+)
 
 module.exports = router

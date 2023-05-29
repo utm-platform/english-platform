@@ -1,7 +1,7 @@
-const { Exam, Question } = require('../models')
+const { Exam, Question, Group } = require('../models')
 const { NotFoundError, BadRequestError } = require('../utils/errors')
 
-const generate = async ({language, studentId, teacherId}) => {
+const generateToStudent = async ({language, studentId, teacherId}) => {
 
   const questions = await Question.aggregate([
     { $match: { language } },
@@ -15,6 +15,23 @@ const generate = async ({language, studentId, teacherId}) => {
     student: studentId,
     teacher: teacherId
   })
+}
+
+const generateToGroup = async ({language, teacherId, groupId}) => {
+  const group = await Group.findById(groupId).populate('students')
+  console.log({language, teacherId, groupId})
+
+  if (!group) throw new NotFoundError('Group not found')
+
+  const studentsPromises = group.students.map(async student => {
+    const exam = await generateToStudent({ language, studentId: student._id, teacherId })
+
+    return exam
+  })
+
+  const exams = await Promise.all(studentsPromises)
+
+  return exams
 }
 
 const getAll = async () => {
@@ -49,7 +66,8 @@ const finish = async (id, answers) => {
 }
 
 module.exports = {
-  generate,
+  generateToStudent,
+  generateToGroup,
   getAll,
   getById,
   finish
