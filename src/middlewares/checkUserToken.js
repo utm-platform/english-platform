@@ -2,8 +2,9 @@ const jwt = require('jsonwebtoken')
 
 const { JWT_SECRET } = require('../config')
 const { UnauthorizedError } = require('../utils/errors')
+const { User } = require('../models')
 
-const checkUserToken = (req, res, next) => {
+const checkUserToken = async (req, res, next) => {
   const { authorization } = req.headers
 
   if(!authorization) {
@@ -18,7 +19,14 @@ const checkUserToken = (req, res, next) => {
 
   try {
     const decodedToken = jwt.verify(token, JWT_SECRET)
-    req.user = decodedToken.user
+
+    const user = await User.findById(decodedToken.sub)
+
+    if(!user) {
+      next(new UnauthorizedError('Invalid token'))
+    }
+
+    req.user = user
 
     next()
   } catch (err) {

@@ -33,6 +33,7 @@ const questionSchema = new Schema({
 questionSchema.set('toJSON', {
   transform: (doc, ret) => {
     delete ret.__v
+    delete ret.correct_answer
   }
 })
 

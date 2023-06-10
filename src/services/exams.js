@@ -35,7 +35,7 @@ const generateToGroup = async ({language, teacherId, groupId}) => {
 }
 
 const getAll = async () => {
-  return await Exam.find().populate('questions').populate('student').populate('teacher')
+  return await Exam.find().populate('student').populate('teacher')
 }
 
 const getById = async id => {
@@ -43,20 +43,17 @@ const getById = async id => {
 }
 
 const finish = async (id, answers) => {
-  const exam = await Exam.findById(id)
+  const exam = await Exam.findById(id).populate('questions')
 
   if (!exam) throw new NotFoundError('Exam not found')
 
   if (exam.isCompleted) throw new BadRequestError('Exam already completed')
 
-  const questions = await Question.find({ _id: { $in: exam.questions } })
-
-  const score = questions.reduce((acc, question, index) => {
+  const score = exam.questions.reduce((counter, question, index) => {
     if (question.correct_answer === answers[index]) {
-      return acc + 1
+      return counter + 1
     }
-
-    return acc
+    return counter
   }, 0)
 
   exam.score = score

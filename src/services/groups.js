@@ -16,7 +16,7 @@ const create = async (group) => {
 }
 
 const getAll = async () => {
-  return await Group.find().populate('teacher').populate('students')
+  return await Group.find().populate('teacher')
 }
 
 const getById = async (id) => {
@@ -36,11 +36,11 @@ const addStudent = async (groupId, studentId) => {
     throw new NotFoundError('Group not found!')
   }
 
-  if (group.students.includes(studentId)) {
+  if (group.students.some(student => student._id.toString() === studentId)) {
     throw new BadRequestError('Student already in group!')
   }
 
-  group.students.push(studentId)
+  group.students.push(student)
 
   return await group.save()
 }

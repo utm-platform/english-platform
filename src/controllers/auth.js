@@ -4,14 +4,14 @@ const login = async (req, res, next) => {
   const { email, password } = req.body
 
   try {
-    const { token } = await authService.loginService(email, password)
+    const credentials = await authService.login(email, password)
 
-    return res.status(200).json({ token })
+    res.status(200).json(credentials)
   } catch (err) {
     next(err)
   }
 }
 
 module.exports = {
-  login
+  login,
 }
