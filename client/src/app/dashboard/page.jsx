@@ -1,8 +1,11 @@
 import { Sidebar } from '@/components/Sidebar';
 import { Header } from '@/components/Header';
 import { WhiteBox } from '@/components/WhiteBox';
+import { getServerSession } from 'next-auth'
+import { redirect } from 'next/navigation'
+import { authOptions } from '../api/auth/[...nextauth]/route';
 
-export default function Dashboard() {
+export default async function Dashboard() {
   return (
     <main>
       <div className='flex flex-row bg-neutral-100 h-screen w-screen'>

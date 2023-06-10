@@ -1,11 +1,17 @@
 import Link from 'next/link';
 
-export default function Home() {
+export default async function Home(props) {  
   return (
     <main>
       <h1>Home Page</h1>
-      <Link href='/exam/fr'>Francés</Link>
-      <Link href='/exam/en'>Inglés</Link>
+      <ul>
+        <li>
+          <Link href='/exam/fr'>Francés</Link>
+        </li>
+        <li>
+          <Link href='/exam/en'>Inglés</Link>
+        </li>
+      </ul>
     </main>
   )
 }
