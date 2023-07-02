@@ -5,43 +5,44 @@ import { redirect } from 'next/navigation'
 import { useState } from 'react'
 
 export default function Login() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const { data: session, status } = useSession()
 
-  if(status === 'loading') {
+  if (status === 'loading') {
     return <p>Loading...</p>
   }
 
-  if(session) {
+  if (session) {
     redirect('/dashboard')
   }
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
-  const handleLogin = async (e) => {
+  const handleLogin = async e => {
     e.preventDefault()
     signIn('credentials', {
       email,
       password,
-      callbackUrl: `${window.location.origin}/dashboard`
+      callbackUrl: `${window.location.origin}/dashboard`,
     })
   }
 
-  const handleEmail = (e) => {
+  const handleEmail = e => {
     setEmail(e.target.value)
   }
 
-  const handlePassword = (e) => {
+  const handlePassword = e => {
     setPassword(e.target.value)
   }
 
   return (
     <main>
       <h1>Login Page</h1>
-      <form action="post">
-        <input type='email' placeholder='Email' onChange={handleEmail}/>
-        <input type='password' placeholder='Password' onChange={handlePassword}/>
-        <button type='submit' onClick={handleLogin}>Login</button>
+      <form action='post'>
+        <input type='email' placeholder='Email' onChange={handleEmail} />
+        <input type='password' placeholder='Password' onChange={handlePassword} />
+        <button type='submit' onClick={handleLogin}>
+          Login
+        </button>
       </form>
     </main>
   )
