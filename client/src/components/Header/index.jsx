@@ -1,35 +1,22 @@
 import Image from 'next/image'
+import { FaSearch as Icon_Search } from "react-icons/fa";
 
 export const Header = () => {
   return (
-    <div className='flex flex-row justify-between p-2'>
-      <div className='relative'>
-        <div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'>
-          <Image
-            src='/images/icon-search.png'
-            alt='Search icon'
-            width={32}
-            height={32}
-            className='w-5 h-5 text-gray-500 dark:text-gray-400'
-          />
+    <div className='flex flex-row justify-between p-2 mx-10 mt-2'>
+      <div class="relative w-2/3">
+        <div class="relative mb-6">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <Icon_Search class="text-white"></Icon_Search>
+          </div>
+          <input type="text" id="input-group-1" class="bg-transparent border-none text-white text-sm rounded-lg block w-full pl-10 p-2.5 placeholder-white focus:outline-white " placeholder="Search" />
         </div>
-        <input
-          type='search'
-          id='search'
-          className='block w-full p-4 pl-10 text-lg text-white rounded-lg bg-transparent border-transparent placeholder:text-white focus:text-white placeholder:text-lg placeholder:font-normal focus:ring-transparent focus:text-lg focus:font-normal font-normal ring-transparent focus:ring-offset-0'
-          placeholder='Search'
-        />
       </div>
 
-      <div>
-        <Image
-          src='/images/icon-avatar.png'
-          alt='Avatar icon'
-          width={64}
-          height={64}
-          className='w-14 h-14 rounded-full mr-14'
-        />
+      <div class="flex items-center">
+        <Image src='/images/icon-avatar.png' alt='Avatar icon' width={64} height={64} className='w-14 h-14 rounded-full' />
       </div>
     </div>
   )
 }
+

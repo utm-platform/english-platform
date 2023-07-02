@@ -21,6 +21,7 @@ module.exports = {
       cyan: colors.cyan,
       blue: colors.blue,
       green: colors.green,
+      red: colors.red,
     },
     extend: {
       colors: {
@@ -30,6 +31,7 @@ module.exports = {
         gray: '#b4b3b4',
         white: '#f2f2f2',
         dark_gray: '#7c7c7c',
+        red: '#B03A2E',
       }
     },
   },
