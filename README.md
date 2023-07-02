@@ -33,6 +33,8 @@ JWT_REFRESH_SECRET=secret2 # JWT refresh secret
 NODE_ENV=development # Node environment
 ```
 
+Create a `.env` file in the `client` folder and add the following variables:
+
 ```bash
 # Client
 NEXT_API_URL=http://localhost:5000 # URL of the server with same port as the .env file in the server
